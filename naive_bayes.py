@@ -30,7 +30,7 @@ def calc(probability, has_x_int):
 
 def smooth(rate):
     _fraction = Fraction(rate).limit_denominator(1000)
-    return (_fraction.numerator + 10) / (_fraction.denominator + 10)
+    return (_fraction.numerator + 10) / (_fraction.denominator + 20)
 
 
 def main():
@@ -77,8 +77,6 @@ def main():
             print('incorrect', row['section_name'], max_section)
 
     print(match / len(test_rows))
-
-
 
 
 if __name__ == '__main__':
