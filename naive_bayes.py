@@ -1,5 +1,5 @@
 from collections import Counter, defaultdict
-from math import log, pi
+from math import log, pi, exp
 from pprint import pprint
 from decimal import Decimal
 from fractions import Fraction
@@ -60,11 +60,18 @@ def main():
         for section_name, words in vocabs.items():
             print('=====')
 
-            score = 0
+            _score = 0
+            x_rate = 1
+            for _, probability in words.items():
+                x_rate *= probability
             for word, probability in words.items():
                 _words = parse(row['lead_paragraph'])
                 has_word_int = 1 if word in _words else 0
-                score += calc(probability, has_word_int)
+                _score += calc(probability, has_word_int)
+
+            x_over_c = exp(_score)
+            c_over_x = x_over_c * 0.33 / x_rate
+            score = c_over_x
 
             print(section_name, score)
             if not max_score or score > max_score:
